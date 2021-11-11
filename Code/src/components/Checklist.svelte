@@ -1,25 +1,40 @@
 <script lang="ts">
-  import Lists from './lists'
+  import { slide, fade } from 'svelte/transition'
+  import Lists from '../lists'
+
   let currentList = Lists.encourage[1]
   let done = 0
+  let show = true
 
-  function ifAnyClick() {
-    let checked = 0
-    document
-      .querySelectorAll('input[type="checkbox"]')
-      .forEach((e) => ((e as HTMLInputElement).checked ? checked++ : null))
-
-    done = checked
+  function CheckClicked() {
+    show = false
+    setTimeout(() => {
+      let checked = 0
+      //
+      document
+        .querySelectorAll('input[type="checkbox"]')
+        .forEach((e) => ((e as HTMLInputElement).checked ? checked++ : null))
+      //
+      done = checked
+      //
+      ;(document.querySelector('#progress') as HTMLDivElement).style.width =
+        ((done / currentList.length) * 100).toString() + '%'
+    }, 100)
+    setTimeout(() => {
+      show = true
+    }, 300)
   }
 
   $: percent = (done / currentList.length) * 100
+  $: encourageList = Lists.encourage[percent >= 50 ? 1 : 0]
+  $: message = encourageList[randomNumber(encourageList)]
 
   function randomNumber(list) {
-    Math.floor(Math.random() * list.length + 1)
+    return Math.floor(Math.random() * list.length)
   }
 </script>
 
-<div on:click={ifAnyClick}>
+<div>
   <svg viewBox="0 0 0 0" style="position: absolute; z-index: -1; opacity: 0;">
     <defs>
       <path id="todo__line" class="stroke-$base-color" d="M21 12.3h168v0.1z" />
@@ -42,7 +57,7 @@
   <div class="todo-list">
     {#each currentList as item}
       <label class="todo">
-        <input class="todo__state" type="checkbox" />
+        <input class="todo__state" type="checkbox" on:click={CheckClicked} />
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -61,26 +76,19 @@
     {/each}
 
     <div
-      class="flex justify-center items-center flex flex-col mt-2 font-bold text-$second-color"
+      class:opacity-100={show}
+      class:scale-100={show}
+      class="flex justify-center transition transform items-center flex flex-col mt-2 font-bold text-$second-color scale-0 opacity-0"
     >
-      <div>
-        <!-- {Lists.encourage} -->
-        {Lists.encourage[1][
-          Math.floor(Math.random() * Lists.encourage[1].length)
-        ]}
-      </div>
+      <div>{message}</div>
       <div class="mt-2 font-bold text-$second-color ">{percent}%</div>
     </div>
   </div>
+  <div id="progress" class="transition-all transform bg-$base-color h-1 w-0" />
 </div>
 
 <style lang="scss">
   @use "sass:math";
-
-  :root {
-    --base-color: #ff1d5d;
-    --second-color: #19287c;
-  }
 
   $duration: 0.8s;
 

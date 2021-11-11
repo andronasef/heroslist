@@ -10,10 +10,10 @@
   ]
 </script>
 
-<div class="flex justify-center items-center gap-5 font-child text-white">
+<div class="flex justify-center items-center gap-3 font-child text-white">
   {#each lists as link}
     <div
-      class=" bg-$base-color rounded-md w-11 h-11 cursor-pointer flex justify-center items-center text-w"
+      class=" bg-$base-color rounded-md w-11 h-11 cursor-pointer flex justify-center items-center text-w transition transform active:scale-75 "
     >
       <span class="text-xl"> <Icon icon={link[0]} /> </span>
     </div>
