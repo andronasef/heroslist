@@ -6,14 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+      :root {
+        --base-color-values: 255, 29, 93;
+        --base-color: rgb(255, 29, 93);
+        --second-color: #19287c;
+      }
+      * {
+        -webkit-tap-highlight-color: rgba(var(--base-color-values), 0.2);
+        outline: none;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+      }
+
+      ::-moz-selection {
+        /* Code for Firefox */
+        color: #ffffff;
+        background: var(--base-color);
+      }
+
+      ::selection {
+        color: #ffffff;
+        background: var(--base-color);
+      }
     </style>
     <title>HEREOSLIST</title>
-    <script type="module" crossorigin src="./assets/index.ef854f9f.js"></script>
-    <link rel="modulepreload" href="./assets/vendor.20357ede.js">
-    <link rel="stylesheet" href="./assets/index.f7fba7f2.css">
+    <script type="module" crossorigin src="./assets/index.d452fcf2.js"></script>
+    <link rel="modulepreload" href="./assets/vendor.d2d3bcf8.js">
+    <link rel="stylesheet" href="./assets/index.2b53fd6f.css">
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app" class="p-5"></div>
     
   </body>
 </html>
