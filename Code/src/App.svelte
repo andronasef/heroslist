@@ -6,7 +6,7 @@
   import Title from './components/Title.svelte'
 </script>
 
-<SvelteSeo title="HerosList" description="A short description goes here." />
+<SvelteSeo title="HerosList" />
 <div class="flex justify-center items-center flex-col h-screen space-y-5 ">
   <Title />
   <ListsMenu />
