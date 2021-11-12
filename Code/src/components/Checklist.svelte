@@ -4,13 +4,17 @@
 
   let currentList = Lists.encourage[1]
   let done = 0
-  let show = true
+  let showEncourge = true
 
-  function CheckClicked() {
+  $: percent = (done / currentList.length) * 100
+  $: encourageList = Lists.encourage[percent >= 50 ? 1 : 0]
+  $: message = encourageList[randomNumber(encourageList)]
+
+  function clickCheckbox() {
     // Hide Status Again For Transtion
-    show = false
+    showEncourge = false
+    let checked = 0
     setTimeout(() => {
-      let checked = 0
       // Count How Many Tasks Are Checked
       document
         .querySelectorAll('input[type="checkbox"]')
@@ -24,13 +28,9 @@
 
     // Show Status Again For Transtion
     setTimeout(() => {
-      show = true
-    }, 300)
+      showEncourge = true
+    }, 100)
   }
-
-  $: percent = (done / currentList.length) * 100
-  $: encourageList = Lists.encourage[percent >= 50 ? 1 : 0]
-  $: message = encourageList[randomNumber(encourageList)]
 
   function randomNumber(list) {
     return Math.floor(Math.random() * list.length)
@@ -60,7 +60,7 @@
   <div class="todo-list">
     {#each currentList as item}
       <label class="todo">
-        <input class="todo__state" type="checkbox" on:click={CheckClicked} />
+        <input class="todo__state" type="checkbox" on:click={clickCheckbox} />
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -79,8 +79,8 @@
     {/each}
 
     <div
-      class:opacity-100={show}
-      class:scale-100={show}
+      class:opacity-100={showEncourge}
+      class:scale-100={showEncourge}
       class="flex justify-center transition transform items-center flex flex-col mt-2 font-bold text-$second-color scale-0 opacity-0"
     >
       <div>{percent == 0 ? 'خط البداية' : message}</div>
@@ -93,7 +93,7 @@
 <style lang="scss">
   @use "sass:math";
 
-  $duration: 0.8s;
+  $duration: 0.5s;
 
   .todo-list {
     display: block;
