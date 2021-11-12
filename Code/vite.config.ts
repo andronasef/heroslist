@@ -10,13 +10,22 @@ export default defineConfig({
   VitePWA(
     {
       includeAssets: ['favicon.svg', 'robots.txt', 'apple-touch-icon.png', "pwa-512x512.png"],
+      base: './',
       manifest: {
-        dir: "rtl",
-        lang: "ar",
         name: "HerosList",
         short_name: "HerosList",
+        dir: "rtl",
+        lang: "ar",
+        background_color: "#ffffff",
+        display: "fullscreen",
+        theme_color: "#ff1d5d",
         icons: [
           { src: "favicon.svg", sizes: "any", }, {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
             src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
@@ -26,15 +35,7 @@ export default defineConfig({
             sizes: 'any',
             type: 'image/svg',
             purpose: 'any maskable',
-            // scope: "/",
-            // start_url: "/",
-
-
-
           }],
-        background_color: "#ffffff",
-        display: "fullscreen",
-        theme_color: "#ff1d5d",
       }
     })],
   base: "./"

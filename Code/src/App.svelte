@@ -3,6 +3,7 @@
 
   import Checklist from './components/Checklist.svelte'
   import ListsMenu from './components/ListsMenu.svelte'
+  import ReloadPrompt from './components/ReloadPrompt.svelte'
   import Title from './components/Title.svelte'
 </script>
 
@@ -11,6 +12,7 @@
   <Title />
   <ListsMenu />
   <Checklist />
+  <ReloadPrompt />
 </div>
 
 <!-- <h1>{Lists.list0[0]}</h1> -->
