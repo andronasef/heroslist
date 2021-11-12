@@ -7,19 +7,22 @@
   let show = true
 
   function CheckClicked() {
+    // Hide Status Again For Transtion
     show = false
     setTimeout(() => {
       let checked = 0
-      //
+      // Count How Many Tasks Are Checked
       document
         .querySelectorAll('input[type="checkbox"]')
         .forEach((e) => ((e as HTMLInputElement).checked ? checked++ : null))
-      //
+
       done = checked
-      //
+      // Process Bar
       ;(document.querySelector('#progress') as HTMLDivElement).style.width =
         ((done / currentList.length) * 100).toString() + '%'
     }, 100)
+
+    // Show Status Again For Transtion
     setTimeout(() => {
       show = true
     }, 300)
@@ -80,7 +83,7 @@
       class:scale-100={show}
       class="flex justify-center transition transform items-center flex flex-col mt-2 font-bold text-$second-color scale-0 opacity-0"
     >
-      <div>{message}</div>
+      <div>{percent == 0 ? 'خط البداية' : message}</div>
       <div class="mt-2 font-bold text-$second-color ">{percent}%</div>
     </div>
   </div>
