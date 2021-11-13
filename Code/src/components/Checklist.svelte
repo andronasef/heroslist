@@ -1,12 +1,14 @@
 <script lang="ts">
-  import { slide, fade } from 'svelte/transition'
-  import Lists from '../lists'
+  import { fade, fly, slide, draw, scale } from 'svelte/transition'
 
-  let currentList = Lists.encourage[1]
-  let done = 0
+  import Lists, { TheLists } from '../lists'
+
+  export let index = 0
+  export let done = 0
   let showEncourge = true
 
-  $: percent = (done / currentList.length) * 100
+  $: if (index) done = 0
+  $: percent = Math.floor((done / TheLists[index].length) * 100)
   $: encourageList = Lists.encourage[percent >= 50 ? 1 : 0]
   $: message = encourageList[randomNumber(encourageList)]
 
@@ -23,7 +25,7 @@
       done = checked
       // Process Bar
       ;(document.querySelector('#progress') as HTMLDivElement).style.width =
-        ((done / currentList.length) * 100).toString() + '%'
+        ((done / TheLists[index].length) * 100).toString() + '%'
     }, 100)
 
     // Show Status Again For Transtion
@@ -57,37 +59,47 @@
     </defs>
   </svg>
 
-  <div class="todo-list">
-    {#each currentList as item}
-      <label class="todo">
-        <input class="todo__state" type="checkbox" on:click={clickCheckbox} />
+  {#each TheLists as list, theindex}
+    {#if index == theindex}
+      <div class="todo-list" transition:slide|local>
+        {#each list as item}
+          <label class="todo">
+            <input
+              class="todo__state"
+              type="checkbox"
+              on:click={clickCheckbox}
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 200 25"
+              class="todo__icon"
+            >
+              <use xlink:href="#todo__line" class="todo__line" />
+              <use xlink:href="#todo__box" class="todo__box" />
+              <use xlink:href="#todo__check" class="todo__check" />
+              <use xlink:href="#todo__circle" class="todo__circle" />
+            </svg>
 
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          viewBox="0 0 200 25"
-          class="todo__icon"
+            <div class="todo__text">{item}</div>
+          </label>
+        {/each}
+        <!-- Encourage User  -->
+        <div
+          class:opacity-100={showEncourge}
+          class:scale-100={showEncourge}
+          class="flex justify-center transition transform items-center flex flex-col mt-2 font-bold text-$second-color scale-0 opacity-0"
         >
-          <use xlink:href="#todo__line" class="todo__line" />
-          <use xlink:href="#todo__box" class="todo__box" />
-          <use xlink:href="#todo__check" class="todo__check" />
-          <use xlink:href="#todo__circle" class="todo__circle" />
-        </svg>
-
-        <div class="todo__text">{item}</div>
-      </label>
-    {/each}
-
-    <div
-      class:opacity-100={showEncourge}
-      class:scale-100={showEncourge}
-      class="flex justify-center transition transform items-center flex flex-col mt-2 font-bold text-$second-color scale-0 opacity-0"
-    >
-      <div>{percent == 0 ? 'خط البداية' : message}</div>
-      <div class="mt-2 font-bold text-$second-color ">{percent}%</div>
-    </div>
-  </div>
-  <div id="progress" class="transition-all transform bg-$base-color h-1 w-0" />
+          <div>{percent == 0 ? 'خط البداية' : message}</div>
+          <div class="mt-2 font-bold text-$second-color ">{percent}%</div>
+        </div>
+      </div>
+      <div
+        id="progress"
+        class="transition-all transform bg-$base-color h-1 w-0"
+      />
+    {/if}
+  {/each}
 </div>
 
 <style lang="scss">

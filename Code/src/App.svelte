@@ -1,17 +1,22 @@
-<script>
+<script lang="ts">
   import SvelteSeo from 'svelte-seo'
 
   import Checklist from './components/Checklist.svelte'
   import ListsMenu from './components/ListsMenu.svelte'
   import ReloadPrompt from './components/ReloadPrompt.svelte'
   import Title from './components/Title.svelte'
+
+  let index = 0
+  function SetIndex(e) {
+    index = e.detail
+  }
 </script>
 
 <SvelteSeo title="HerosList" />
-<div class="flex justify-center items-center flex-col h-screen space-y-5 ">
+<div class="flex justify-center items-center flex-col space-y-5 p-5">
   <Title />
-  <ListsMenu />
-  <Checklist />
+  <ListsMenu on:SetIndex={SetIndex} />
+  <Checklist {index} />
   <ReloadPrompt />
 </div>
 

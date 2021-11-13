@@ -1,21 +1,31 @@
 <script>
   import Icon from '@iconify/svelte'
+  import { createEventDispatcher } from 'svelte'
+  import Lists from '../lists'
 
-  let lists = [
-    ['ic:round-people-alt', ''],
-    ['fa-solid:bible', ''],
-    ['vs:kakaotalk', ''],
-    ['mdi:bike', ''],
-    ['fa-solid:home', ''],
-  ]
+  const dispatch = createEventDispatcher()
+
+  let nowIndex = 0
+  function SetIndex(index) {
+    nowIndex = index
+    dispatch('SetIndex', index)
+  }
 </script>
 
 <div class="flex justify-center items-center gap-3 font-child text-white">
-  {#each lists as link}
+  {#each Lists.icons as icon, index}
     <div
-      class=" bg-$base-color rounded-md w-11 h-11 cursor-pointer flex justify-center items-center text-w transition transform active:scale-75 "
+      on:click={() => SetIndex(index)}
+      class=" bg-$base-color opacity-80  rounded-md w-10 h-10 cursor-pointer flex justify-center items-center text-w transition transform active:scale-75"
+      class:selected={index == nowIndex}
     >
-      <span class="text-xl"> <Icon icon={link[0]} /> </span>
+      <span class="text-xl"> <Icon {icon} /> </span>
     </div>
   {/each}
 </div>
+
+<style lang="scss">
+  .selected {
+    opacity: 1;
+  }
+</style>
