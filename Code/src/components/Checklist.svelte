@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { fade, fly, slide, draw, scale } from 'svelte/transition'
+  import { slide } from 'svelte/transition'
 
-  import Lists, { TheLists } from '../lists'
+  import Lists, { TheLists, TheListsNames } from '../lists'
 
   export let index = 0
   export let done = 0
   let showEncourge = true
 
-  $: if (index) done = 0
+  $: if (index >= 0) done = 0
   $: percent = Math.floor((done / TheLists[index].length) * 100)
   $: encourageList = Lists.encourage[percent >= 50 ? 1 : 0]
   $: message = encourageList[randomNumber(encourageList)]
@@ -62,6 +62,10 @@
   {#each TheLists as list, theindex}
     {#if index == theindex}
       <div class="todo-list" transition:slide|local>
+        <div class="font-bold text-$second-color text-center text-2xl mt-2">
+          {TheListsNames[index]}
+        </div>
+
         {#each list as item}
           <label class="todo">
             <input
@@ -88,10 +92,10 @@
         <div
           class:opacity-100={showEncourge}
           class:scale-100={showEncourge}
-          class="flex justify-center transition transform items-center flex flex-col mt-2 font-bold text-$second-color scale-0 opacity-0"
+          class="flex justify-center transition transform items-center flex flex-col mt-2  space-y-2 font-bold text-$second-color scale-0 opacity-0"
         >
           <div>{percent == 0 ? 'خط البداية' : message}</div>
-          <div class="mt-2 font-bold text-$second-color ">{percent}%</div>
+          <div class="">{percent}%</div>
         </div>
       </div>
       <div

@@ -23,7 +23,7 @@ export class Lists {
 
 const TheLists = [Lists.goal, Lists.relationships, Lists.experience, Lists.bible, Lists.talk, Lists.response]
 
-
+const TheListsNames = ["هدف الدرس ", "نشاط العلاقات", "نشاط الخبرة", "الدرس", "المناقشة", "الاستجابة"]
 
 export default Lists
-export { TheLists }
+export { TheLists, TheListsNames }
