@@ -16,7 +16,7 @@
   {#each Lists.icons as icon, index}
     <div
       on:click={() => SetIndex(index)}
-      class=" bg-$base-color opacity-80  rounded-md w-10 h-10 cursor-pointer flex justify-center items-center text-w transition transform active:scale-75"
+      class=" bg-$base-color opacity-50  rounded-md w-10 h-10 cursor-pointer flex justify-center items-center text-w transition transform active:scale-75"
       class:selected={index == nowIndex}
     >
       <span class="text-xl"> <Icon {icon} /> </span>

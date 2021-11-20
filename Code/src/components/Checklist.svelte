@@ -39,7 +39,7 @@
   }
 </script>
 
-<div>
+<div style="font-family: 'Noto Sans Arabic', sans-seri;">
   <svg viewBox="0 0 0 0" style="position: absolute; z-index: -1; opacity: 0;">
     <defs>
       <path id="todo__line" class="stroke-$base-color" d="M21 12.3h168v0.1z" />
@@ -85,7 +85,7 @@
               <use xlink:href="#todo__circle" class="todo__circle" />
             </svg>
 
-            <div class="todo__text">{item}</div>
+            <div class="todo__text font-medium">{item}</div>
           </label>
         {/each}
         <!-- Encourage User  -->
@@ -107,7 +107,7 @@
 </div>
 
 <style lang="scss">
-  @use "sass:math";
+  @use 'sass:math';
 
   $duration: 0.5s;
 
